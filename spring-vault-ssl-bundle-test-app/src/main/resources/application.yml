@@ -1,0 +1,27 @@
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    bundle: "secret/data/ssl-certs/server-a"
+
+spring:
+  application:
+    name: vault-ssl-test-app
+  cloud:
+    vault:
+      host: localhost
+      port: 8200
+      scheme: http
+      authentication: TOKEN
+      token: demo-root-token
+      kv:
+        enabled: true
+        backend: secret
+        default-context: ssl-certs
+
+# Logging configuration
+logging:
+  level:
+    org.springframework.vault: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.http.client: DEBUG
