@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
+        default: '0.0.1'
         description: 'Version to deploy'
         required: true
         type: string
