@@ -24,6 +24,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    outputs:
+      version: ${{ steps.version.outputs.VERSION }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -161,7 +164,7 @@ jobs:
 
       - name: Verify deployment
         run: |
-          VERSION=${{ needs.deploy.outputs.version || github.ref_name }}
+          VERSION=${{ needs.deploy.outputs.version }}
           VERSION=${VERSION#v}
           
           echo "Verifying deployment of version $VERSION"
