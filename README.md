@@ -1,19 +1,56 @@
-# Spring  Vault SSL Bundle
+# 🔐 Spring Vault SSL Bundle
 
-This project enables loading SSL certificates from HashiCorp Vault using the `vault:` prefix in your SSL bundle configuration.
+> Seamlessly integrate HashiCorp Vault with Spring Boot SSL configuration using native `ssl.bundle` support.
 
-## Features
+## ❌ The Problem
 
-- Seamless integration with Spring Boot's SSL bundle system
-- Automatic loading of certificates from Vault at startup
-- Support for certificate, private key, and CA certificate
-- Caching of loaded certificates for performance
-- Compatible with Spring Cloud Vault configuration
+Spring Boot's built-in SSL bundle support is powerful but has limitations when working with HashiCorp Vault:
 
-## Installation
+| Issue | Impact |
+|-------|--------|
+| **No Vault Integration** | Must manually fetch certificates from Vault using scripts or CLI |
+| **File System Dependency** | Requires storing PEM files locally in resources or filesystem |
+| **Manual Certificate Rotation** | No automation for certificate lifecycle management |
+| **DevOps Overhead** | Additional tooling and processes required |
 
-Add the dependency to your `pom.xml`:
+### Traditional Approach
+```yaml
+# ❌ Requires manual certificate management
+spring:
+  ssl:
+    bundle:
+      pem:
+        mybundle:
+          keystore:
+            certificate: classpath:server.crt  # Must be manually placed
+            private-key: classpath:server.key  # Must be manually rotated
+```
 
+## ✅ The Solution
+
+**spring-vault-ssl-bundle** bridges this gap by extending Spring Boot's SSL bundle system with native Vault support.
+
+### Key Benefits
+
+🚀 **Zero File Management** - Certificates are fetched directly from Vault  
+🔄 **Automatic Rotation Ready** - Built for dynamic certificate workflows  
+🎯 **Native Integration** - Works seamlessly with existing `ssl.bundle` configuration  
+⚡ **Zero Code Changes** - Just update your YAML configuration  
+🔒 **Secure by Design** - Leverages Vault's security model
+
+### Modern Approach
+```yaml
+# ✅ Direct Vault integration
+server:
+  ssl:
+    bundle: "vault:secret/data/ssl-certs/my-service"
+```
+
+## 🚀 Quick Start
+
+### 1. Add Dependency
+
+**Maven:**
 ```xml
 <dependency>
     <groupId>io.github.gridadev</groupId>
@@ -22,74 +59,107 @@ Add the dependency to your `pom.xml`:
 </dependency>
 ```
 
-## Vault Certificate Format
-
-Store your SSL certificates in Vault with the following structure:
-
-```json
-{
-  "certificate": "-----BEGIN CERTIFICATE-----\nMIIE...\n-----END CERTIFICATE-----",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----",
-  "ca_certificate": "-----BEGIN CERTIFICATE-----\nMIIE...\n-----END CERTIFICATE-----"
-}
+**Gradle:**
+```kotlin
+implementation("io.github.gridadev:spring-vault-ssl-bundle:0.0.1")
 ```
 
-### Required Fields:
-- `certificate`: The server certificate in PEM format
-- `private_key`: The private key in PEM format (PKCS#8 or RSA format)
+### 2. Store Certificates in Vault
 
-### Optional Fields:
-- `ca_certificate`: The CA certificate in PEM format
+```bash
+# Store your SSL certificates in Vault
+vault kv put secret/ssl-certs/my-service \
+  certificate=@server.crt \
+  private_key=@server.key \
+  ca_certificate=@ca.crt
+```
 
-## Configuration
-
-### Application Properties
-
-Your `application.yml` can reference Vault-stored certificates using the `vault:` prefix:
+### 3. Configure Application
 
 ```yaml
 server:
   port: 8443
   ssl:
     enabled: true
-    bundle: "vault:secret/data/ssl-certs/server-a"
+    bundle: "vault:secret/data/ssl-certs/my-service"
 
 spring:
   application:
-    name: server-a
+    name: my-service
   cloud:
     vault:
       host: localhost
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: demo-root-token
+      token: ${VAULT_TOKEN}
       kv:
         enabled: true
         backend: secret
-        default-context: ssl-certs
 ```
 
-### Bundle Name Format
+That's it! Your application now loads SSL certificates directly from Vault.
 
-The bundle name must follow this pattern:
+## 📋 Certificate Format
+
+Store certificates in Vault using this JSON structure:
+
+```json
+{
+  "certificate": "-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----",
+  "ca_certificate": "-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----"
+}
+```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `certificate` | ✅ | Server certificate in PEM format |
+| `private_key` | ✅ | Private key in PEM format |
+| `ca_certificate` | ❌ | CA certificate chain (optional) |
+
+## ⚙️ Configuration Options
+
+### Bundle URI Format
 ```
 vault:<vault-path>
 ```
 
-Examples:
-- `vault:secret/data/ssl-certs/server-a`
+### Examples
+```yaml
+# Different services, different certificates
+server:
+  ssl:
+    bundle: "vault:secret/data/ssl-certs/api-gateway"
 
-
-### Export GPG private key and public key 
-
+# Or for different environments
+server:
+  ssl:
+    bundle: "vault:secret/data/ssl-certs/${spring.profiles.active}/web-server"
 ```
-gpg --armor --export YOUR_KEY_ID > public.key
-gpg --armor --export-secret-key YOUR_KEY_ID  > secret.key
-```
 
-### License
-MIT License.
+## 🆚 Comparison
 
+| Feature | Native Spring Boot | spring-vault-ssl-bundle |
+|---------|-------------------|-------------------------|
+| **Vault Integration** | ❌ Manual scripts | ✅ Native support |
+| **File Management** | ❌ Required | ✅ Eliminated |
+| **Certificate Rotation** | ❌ Manual process | ✅ Automation-ready |
+| **Configuration** | ⚠️ Complex | ✅ Simple |
+| **Security** | ⚠️ Files on disk | ✅ Vault-secured |
+| **DevOps Friendly** | ❌ Extra tooling | ✅ Built-in |
 
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
