@@ -1,4 +1,4 @@
-package dev.grida.spring.vault.ssl.bundle;
+package io.github.gridadev.spring.vault.ssl.bundle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

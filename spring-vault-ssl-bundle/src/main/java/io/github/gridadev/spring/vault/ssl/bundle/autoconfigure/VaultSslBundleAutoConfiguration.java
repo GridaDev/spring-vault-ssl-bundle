@@ -1,7 +1,7 @@
-package dev.grida.spring.vault.ssl.bundle.autoconfigure;
+package io.github.gridadev.spring.vault.ssl.bundle.autoconfigure;
 
-import dev.grida.spring.vault.ssl.bundle.VaultSslBundleRegistrar;
-import dev.grida.spring.vault.ssl.bundle.VaultSslBundleRegistry;
+import io.github.gridadev.spring.vault.ssl.bundle.VaultSslBundleRegistrar;
+import io.github.gridadev.spring.vault.ssl.bundle.VaultSslBundleRegistry;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

@@ -85,4 +85,4 @@ openssl verify -CAfile $CERT_DIR/ca-cert.pem $CERT_DIR/server-a-cert.pem
 openssl verify -CAfile $CERT_DIR/ca-cert.pem $CERT_DIR/server-b-cert.pem
 
 echo -e "\nCertificate generation complete!"
-echo "You can now run 'docker-compose up' to start Vault and load these certificates."
+echo "You can now run 'docker compose up' to start Vault and load these certificates."

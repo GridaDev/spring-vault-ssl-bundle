@@ -1,4 +1,4 @@
-package dev.grida.demo.health;
+package io.github.gridadev.demo.health;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>dev.grida</groupId>
+    <groupId>io.github.gridadev</groupId>
     <artifactId>spring-vault-ssl-bundle-parent-project</artifactId>
     <version>${revision}</version>
   </parent>

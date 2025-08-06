@@ -1,11 +1,11 @@
-package dev.grida.demo;
+package io.github.gridadev.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"dev.grida"})
+@ComponentScan(basePackages = {"io.github.gridadev"})
 public class DemoApplication {
 
     public static void main(String[] args) {

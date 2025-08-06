@@ -1,4 +1,4 @@
-package dev.grida.spring.vault.ssl.bundle;
+package io.github.gridadev.spring.vault.ssl.bundle;
 
 import org.springframework.boot.ssl.*;
 import org.springframework.boot.ssl.pem.PemSslStoreBundle;
