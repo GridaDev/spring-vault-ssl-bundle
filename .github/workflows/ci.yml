@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Make scripts executable
+        run: |
+          chmod +x ./generate-certs.sh
+          chmod +x ./vault-init.sh
+
+      - name: Run certificate generation script
+        run: ./generate-certs.sh
+
+      - name: Start Vault with Docker Compose
+        run: |
+          docker-compose up -d vault
+          
+          # Wait for Vault to be ready
+          echo "Waiting for Vault to start..."
+          for i in {1..30}; do
+            if curl -s http://localhost:8200/v1/sys/health >/dev/null 2>&1; then
+              echo "Vault is ready!"
+              break
+            fi
+            echo "Waiting for Vault... ($i/30)"
+            sleep 10
+          done
+
+      - name: Initialize and start Spring application
+        run: ./vault-init.sh
+
+      - name: Build Spring application
+        run: |
+          echo "Building Spring application..."
+          ./mvnw clean install -DskipTests
+
+      - name: Run Spring application
+        run: |
+          echo "Starting Spring application..."
+          ./mvnw spring-boot:run -pl spring-vault-ssl-bundle-test-app &      
+
+      - name: Health check
+        run: |
+          # Check if Vault is running
+          curl -f http://localhost:8200/v1/sys/health || exit 1
+          
+          # Check if Spring app is running (HTTPS on port 8443)
+          sleep 30  # Give Spring app time to start
+          curl -k -f https://localhost:8443/actuator/health || exit 1
+
+      - name: Cleanup on failure
+        if: failure()
+        run: |
+          docker-compose down
+          docker-compose logs
