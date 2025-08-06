@@ -81,6 +81,13 @@ Examples:
 - `vault:secret/data/ssl-certs/server-a`
 
 
+### Export GPG private key and public key 
+
+```
+gpg --output public.pgp --armor --export khalil.lagrida@gmail.com
+gpg --output secret.pgp --armor --export-secret-key khalil.lagrida@gmail.com
+```
+
 ### License
 MIT License.
 

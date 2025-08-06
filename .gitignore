@@ -35,3 +35,6 @@ build/
 .flattened-pom.xml
 
 /certificates/
+
+/public.pgp
+/secret.pgp
