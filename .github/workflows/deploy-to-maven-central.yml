@@ -97,6 +97,11 @@ jobs:
         run: |
           echo "Deploying to Maven Central with version ${{ steps.version.outputs.VERSION }}"
           
+          
+          export MAVEN_USERNAME="${{ secrets.MAVEN_USERNAME }}"
+          export MAVEN_PASSWORD="${{ secrets.MAVEN_PASSWORD }}"
+          export GPG_PASSPHRASE="${{ secrets.GPG_PASSPHRASE }}"
+          
           # Option 1: Deploy specific module only
           if [ -n "${MODULE_TO_DEPLOY:-${{ github.event.inputs.module || '' }}}" ]; then
             MODULE="${MODULE_TO_DEPLOY:-${{ github.event.inputs.module }}}"
