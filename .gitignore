@@ -35,6 +35,3 @@ build/
 .flattened-pom.xml
 
 /certificates/
-
-/public.key
-/secret.key
