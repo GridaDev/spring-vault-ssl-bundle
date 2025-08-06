@@ -16,7 +16,7 @@ Add the dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>com.demo</groupId>
+    <groupId>io.github.gridadev</groupId>
     <artifactId>spring-vault-ssl-bundle</artifactId>
     <version>0.0.1</version>
 </dependency>
