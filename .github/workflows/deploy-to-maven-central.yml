@@ -121,7 +121,7 @@ jobs:
             mvn clean deploy -Drevision=${{ steps.version.outputs.VERSION }} \
               -DskipTests=true \
               -B \
-              -Prelease-profile \
+              -Prelease-profile 
           fi
 
       - name: Create GitHub Release
