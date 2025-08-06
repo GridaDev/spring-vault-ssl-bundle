@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
+        default: '0.0.1'
         description: 'Version to deploy'
         required: true
         type: string
@@ -29,16 +30,25 @@ jobs:
         with:
           fetch-depth: 0
 
+
+      - name: Import GPG Key
+        run: |
+          echo "${{ secrets.GPG_PUBLIC_KEY }}" | gpg --import
+          echo "${{ secrets.GPG_SECRET_KEY }}" | gpg --import --no-tty --batch --yes
+        env:
+          GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
+          GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-          server-id: ossrh
-          server-username: ${{ secrets.MAVEN_USERNAME }}
-          server-password: ${{ secrets.MAVEN_PASSWORD }}
-          gpg-private-key: ${{ secrets.GPG_PASSPHRASE }}
-          gpg-passphrase: GPG_PASSPHRASE
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
       - name: Cache Maven dependencies
         uses: actions/cache@v3
@@ -91,8 +101,7 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          MODULE_TO_DEPLOY: "spring-vault-ssl-bundle"
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           echo "Deploying to Maven Central with version ${{ steps.version.outputs.VERSION }}"
           
@@ -104,7 +113,6 @@ jobs:
               -DskipTests=true \
               -B \
               -Prelease-profile \
-              -Dgpg.passphrase="${GPG_PASSPHRASE}" \
               -pl "$MODULE" \
               -am
           else
@@ -113,8 +121,7 @@ jobs:
             mvn clean deploy -Drevision=${{ steps.version.outputs.VERSION }} \
               -DskipTests=true \
               -B \
-              -Prelease-profile \
-              -Dgpg.passphrase="${GPG_PASSPHRASE}"
+              -Prelease-profile 
           fi
 
       - name: Create GitHub Release
