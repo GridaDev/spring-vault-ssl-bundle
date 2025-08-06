@@ -84,8 +84,8 @@ Examples:
 ### Export GPG private key and public key 
 
 ```
-gpg --output public.pgp --armor --export khalil.lagrida@gmail.com
-gpg --output secret.pgp --armor --export-secret-key khalil.lagrida@gmail.com
+gpg --armor --export YOUR_KEY_ID > public.key
+gpg --armor --export-secret-key YOUR_KEY_ID  > secret.key
 ```
 
 ### License

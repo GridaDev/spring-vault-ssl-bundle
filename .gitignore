@@ -36,5 +36,5 @@ build/
 
 /certificates/
 
-/public.pgp
-/secret.pgp
+/public.key
+/secret.key
