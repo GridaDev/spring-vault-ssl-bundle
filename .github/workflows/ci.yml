@@ -31,7 +31,7 @@ jobs:
 
       - name: Start Vault with Docker Compose
         run: |
-          docker-compose up -d vault
+          docker compose up -d vault
           
           # Wait for Vault to be ready
           echo "Waiting for Vault to start..."
