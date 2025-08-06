@@ -105,7 +105,7 @@ jobs:
               -DskipTests=true \
               -B \
               -Prelease-profile \
-              -Dgpg.passphrase="${secrets.GPG_PASSPHRASE}" \
+              -Dgpg.passphrase="${GPG_PASSPHRASE}" \
               -pl "$MODULE" \
               -am
           else
@@ -115,7 +115,7 @@ jobs:
               -DskipTests=true \
               -B \
               -Prelease-profile \
-              -Dgpg.passphrase="${secrets.GPG_PASSPHRASE}"
+              -Dgpg.passphrase="${GPG_PASSPHRASE}"
           fi
 
       - name: Create GitHub Release
