@@ -37,11 +37,13 @@ public class VaultSslBundleRegistry implements SslBundleRegistry, SslBundles {
     private SslBundle loadBundleFromVault(String bundleName) {
         try {
 
-            logger.debug("Loading SSL bundle from Vault path: {}", bundleName);
+            var vaultPath = bundleName.substring(6);
 
-            VaultResponse response = vaultTemplate.read(bundleName);
+            logger.debug("Loading SSL bundle from Vault path: {}", vaultPath);
+
+            VaultResponse response = vaultTemplate.read(vaultPath);
             if (response == null || response.getData() == null) {
-                throw new RuntimeException("No SSL certificate data found at Vault path: " + bundleName);
+                throw new RuntimeException("No SSL certificate data found at Vault path: " + vaultPath);
             }
 
             Map<String, Object> data = response.getData();
