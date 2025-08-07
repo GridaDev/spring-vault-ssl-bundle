@@ -131,11 +131,6 @@ vault:<vault-path>
 server:
   ssl:
     bundle: "vault:secret/data/ssl-certs/api-gateway"
-
-# Or for different environments
-server:
-  ssl:
-    bundle: "vault:secret/data/ssl-certs/${spring.profiles.active}/web-server"
 ```
 
 ## 🆚 Comparison
