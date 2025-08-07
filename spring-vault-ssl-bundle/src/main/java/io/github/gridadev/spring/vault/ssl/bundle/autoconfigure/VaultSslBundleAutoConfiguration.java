@@ -1,7 +1,9 @@
 package io.github.gridadev.spring.vault.ssl.bundle.autoconfigure;
 
-import io.github.gridadev.spring.vault.ssl.bundle.VaultSslBundleRegistry;
+import io.github.gridadev.spring.vault.ssl.bundle.VaultSslBundleRegistrar;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.ssl.SslBundleRegistrar;
+import org.springframework.boot.autoconfigure.ssl.SslProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.vault.core.VaultTemplate;
 
@@ -13,7 +15,7 @@ import org.springframework.vault.core.VaultTemplate;
 public class VaultSslBundleAutoConfiguration {
 
     @Bean
-    public VaultSslBundleRegistry vaultSslBundleRegistry(VaultTemplate vaultTemplate) {
-        return new VaultSslBundleRegistry(vaultTemplate);
+    public SslBundleRegistrar vaultSslBundleRegistrar(SslProperties properties, VaultTemplate vaultTemplate) {
+        return new VaultSslBundleRegistrar(properties, vaultTemplate);
     }
 }

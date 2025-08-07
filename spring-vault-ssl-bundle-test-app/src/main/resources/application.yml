@@ -2,7 +2,7 @@ server:
   port: 8443
   ssl:
     enabled: true
-    bundle: "vault:secret/data/ssl-certs/server-a"
+    bundle: "server-a"
 
 spring:
   application:
@@ -18,6 +18,17 @@ spring:
         enabled: true
         backend: secret
         default-context: ssl-certs
+
+  ssl:
+    bundle:
+      pem:
+        server-a:
+          reload-on-update: false
+          keystore:
+            certificate: "vault:secret/data/ssl-certs/server-a:certificate"
+            private-key: "vault:secret/data/ssl-certs/server-a:private-key"
+          truststore:
+            certificate: "vault:secret/data/ssl-certs/server-a:ca-certificate"
 
 # Logging configuration
 logging:

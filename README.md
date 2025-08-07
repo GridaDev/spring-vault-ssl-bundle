@@ -36,15 +36,9 @@ spring:
 🔄 **Automatic Rotation Ready** - Built for dynamic certificate workflows  
 🎯 **Native Integration** - Works seamlessly with existing `ssl.bundle` configuration  
 ⚡ **Zero Code Changes** - Just update your YAML configuration  
-🔒 **Secure by Design** - Leverages Vault's security model
-
-### Modern Approach
-```yaml
-# ✅ Direct Vault integration
-server:
-  ssl:
-    bundle: "vault:secret/data/ssl-certs/my-service"
-```
+🔒 **Secure by Design** - Leverages Vault's security model  
+⚡ **Smart Caching** - Eliminates duplicate Vault calls within the same bundle  
+🎯 **Flexible Configuration** - Simple for common cases, advanced when needed
 
 ## 🚀 Quick Start
 
@@ -70,22 +64,31 @@ implementation("io.github.gridadev:spring-vault-ssl-bundle:0.0.1")
 # Store your SSL certificates in Vault
 vault kv put secret/ssl-certs/my-service \
   certificate=@server.crt \
-  private_key=@server.key \
-  ca_certificate=@ca.crt
+  private-key=@server.key \
+  ca-certificate=@ca.crt
 ```
 
 ### 3. Configure Application
 
+**Simple Configuration (Recommended):**
 ```yaml
+spring:
+  ssl:
+    bundle:
+      pem:
+        my-service:
+          keystore:
+            certificate: "vault:secret/data/ssl-certs/my-service"
+          truststore:
+            certificate: "vault:secret/data/ssl-certs/my-service"
+
 server:
   port: 8443
   ssl:
     enabled: true
-    bundle: "vault:secret/data/ssl-certs/my-service"
+    bundle: my-service
 
 spring:
-  application:
-    name: my-service
   cloud:
     vault:
       host: localhost
@@ -107,31 +110,149 @@ Store certificates in Vault using this JSON structure:
 ```json
 {
   "certificate": "-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----",
-  "ca_certificate": "-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----"
+  "private-key": "-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----",
+  "ca-certificate": "-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----"
 }
 ```
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `certificate` | ✅ | Server certificate in PEM format |
-| `private_key` | ✅ | Private key in PEM format |
-| `ca_certificate` | ❌ | CA certificate chain (optional) |
+| `certificate` | ❌ | Server certificate in PEM format (keystore only) |
+| `private-key` | ❌ | Private key in PEM format (keystore only) |
+| `ca-certificate` | ❌ | CA certificate chain (truststore, fallback to `certificate`) |
+
+**Field Requirements by Use Case:**
+- **Keystore Configuration**: `certificate` is required, `private-key` and `ca-certificate` are filled automatically unless explicitly specified.
+- **Truststore only Configuration**: Only `ca-certificate` is required (or certificate as fallback)
 
 ## ⚙️ Configuration Options
 
-### Bundle URI Format
+### 🎯 Simple Configuration (Recommended)
+
+Specify the Vault path once - the system automatically maps standard field names:
+
+```yaml
+spring:
+  ssl:
+    bundle:
+      pem:
+        web-server:
+          keystore:
+            certificate: "vault:secret/data/ssl-certs/web-server"
+          truststore:
+            certificate: "vault:secret/data/ssl-certs/web-server"
+```
+
+**Automatic Field Mapping:**
+- `certificate` → Server certificate
+- `private-key` → Private key
+- `ca-certificate` → CA certificate (with fallback to `certificate`)
+
+### 🔧 Advanced Configuration
+
+When you need custom field names or separate paths:
+
+```yaml
+spring:
+  ssl:
+    bundle:
+      pem:
+        api-gateway:
+          keystore:
+            certificate: "vault:secret/data/ssl-certs/api-gateway:server_cert"
+            private-key: "vault:secret/data/private-keys/api-gateway:server_key"
+          truststore:
+            certificate: "vault:secret/data/ca-certs/root:ca_bundle"
+```
+
+### 🔒 Truststore-Only Configuration
+
+For client applications that only need to validate server certificates:
+
+```yaml
+spring:
+  ssl:
+    bundle:
+      pem:
+        client-app:
+          truststore:
+            certificate: "vault:secret/data/ca-certs/trusted-cas"
+```
+
+### 🌐 Multiple Bundle Configuration
+
+Different services can have different certificate configurations:
+
+```yaml
+spring:
+  ssl:
+    bundle:
+      pem:
+        # Internal service communication
+        internal:
+          keystore:
+            certificate: "vault:secret/data/ssl-certs/internal"
+          truststore:
+            certificate: "vault:secret/data/ssl-certs/internal"
+        
+        # External client connections  
+        external:
+          keystore:
+            certificate: "vault:secret/data/ssl-certs/external"
+          truststore:
+            certificate: "vault:secret/data/ca-certs/public-cas"
+```
+
+## 🏗️ Vault Path Format
+
+### Basic Syntax
 ```
 vault:<vault-path>
 ```
 
+### Advanced Syntax
+```  
+vault:<vault-path>:<field-name>
+```
+
 ### Examples
 ```yaml
-# Different services, different certificates
-server:
-  ssl:
-    bundle: "vault:secret/data/ssl-certs/api-gateway"
+# Use default field names
+certificate: "vault:secret/data/ssl-certs/my-app"
+
+# Specify custom field name
+certificate: "vault:secret/data/ssl-certs/my-app:server_certificate" 
+
+# Different paths for different components
+certificate: "vault:pki/cert/my-app:certificate"
+private-key: "vault:pki/private/my-app:private_key"
 ```
+
+## 🔍 Vault Secret Engine Support
+
+### KV Version 2 (Recommended)
+```bash
+# Enable KV v2 
+vault secrets enable -path=secret kv-v2
+
+# Store certificate
+vault kv put secret/ssl-certs/my-service \
+  certificate=@server.crt \
+  private-key=@server.key
+```
+
+### KV Version 1 (Legacy)
+```bash
+# Enable KV v1
+vault secrets enable -path=secret kv
+
+# Store certificate  
+vault kv put secret/ssl-certs/my-service \
+  certificate=@server.crt \
+  private-key=@server.key
+```
+
+The library automatically detects and handles both KV v1 and KV v2 formats.
 
 ## 🆚 Comparison
 
@@ -143,6 +264,15 @@ server:
 | **Configuration** | ⚠️ Complex | ✅ Simple |
 | **Security** | ⚠️ Files on disk | ✅ Vault-secured |
 | **DevOps Friendly** | ❌ Extra tooling | ✅ Built-in |
+| **Performance** | ✅ File system | ✅ Smart caching |
+| **Flexibility** | ❌ Static files | ✅ Dynamic configuration |
+
+## 🛠️ Requirements
+
+- **Java**: 17 or higher
+- **Spring Boot**: 3.0 or higher
+- **Spring Vault**: 3.0 or higher
+- **HashiCorp Vault**: Any supported version
 
 ## 🤝 Contributing
 
@@ -158,3 +288,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+---
+
+**Made with ❤️ for the Spring Boot community**
