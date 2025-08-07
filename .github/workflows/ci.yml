@@ -75,5 +75,5 @@ jobs:
       - name: Cleanup on failure
         if: failure()
         run: |
-          docker-compose down
-          docker-compose logs
+          docker compose down
+          docker compose logs
