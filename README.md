@@ -115,12 +115,6 @@ Store certificates in Vault using this JSON structure:
 }
 ```
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `certificate` | ❌ | Server certificate in PEM format (keystore only) |
-| `private-key` | ❌ | Private key in PEM format (keystore only) |
-| `ca-certificate` | ❌ | CA certificate chain (truststore, fallback to `certificate`) |
-
 **Field Requirements by Use Case:**
 - **Keystore Configuration**: `certificate` is required, `private-key` and `ca-certificate` are filled automatically unless explicitly specified.
 - **Truststore only Configuration**: Only `ca-certificate` is required (or certificate as fallback)
