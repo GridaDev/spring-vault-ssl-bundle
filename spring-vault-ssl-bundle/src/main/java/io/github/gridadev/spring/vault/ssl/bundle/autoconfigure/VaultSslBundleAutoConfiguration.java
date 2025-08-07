@@ -15,8 +15,7 @@ import org.springframework.vault.core.VaultTemplate;
 public class VaultSslBundleAutoConfiguration {
 
     @Bean
-    public SslBundleRegistrar vaultSslBundleRegistrar(
-            SslProperties properties, VaultTemplate vaultTemplate) {
+    public SslBundleRegistrar vaultSslBundleRegistrar(SslProperties properties, VaultTemplate vaultTemplate) {
         return new VaultSslBundleRegistrar(properties, vaultTemplate);
     }
 }
