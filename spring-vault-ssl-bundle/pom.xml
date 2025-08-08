@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0          http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>io.github.gridadev</groupId>
-    <artifactId>spring-vault-ssl-bundle-parent-project</artifactId>
+    <parent>
+        <groupId>io.github.gridadev</groupId>
+        <artifactId>spring-vault-ssl-bundle-parent-project</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>spring-vault-ssl-bundle</artifactId>
     <version>${revision}</version>
-  </parent>
+    <packaging>jar</packaging>
 
-  <artifactId>spring-vault-ssl-bundle</artifactId>
-  <version>${revision}</version>
-  <packaging>jar</packaging>
-
-  <name>Spring Vault SSL Bundle Starter</name>
-  <description>A Spring Boot starter that enables secure loading and automatic reloading of SSL bundles
+    <name>Spring Vault SSL Bundle Starter</name>
+    <description>A Spring Boot starter that enables secure loading and automatic reloading of SSL bundles
     (certificates, keys, trust stores) from HashiCorp Vault using Spring Boot's SSL Bundle support.</description>
 
-  <dependencies>
+    <dependencies>
 
-    <!-- SLF4J API -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
+        <!-- SLF4J API -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Spring Boot Auto Configuration -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Spring Boot Auto Configuration -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Spring Boot Starter -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Spring Boot Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-    <!-- Spring Cloud Starter Vault Config -->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-vault-config</artifactId>
-      <scope>provided</scope>
-    </dependency>
+        <!-- Spring Cloud Starter Vault Config -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-vault-config</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-  </dependencies>
+    </dependencies>
 
 </project>
