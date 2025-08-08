@@ -72,16 +72,6 @@ vault kv put secret/ssl-certs/my-service \
 
 **Simple Configuration (Recommended):**
 ```yaml
-spring:
-  ssl:
-    bundle:
-      pem:
-        my-service:
-          keystore:
-            certificate: "vault:secret/data/ssl-certs/my-service"
-          truststore:
-            certificate: "vault:secret/data/ssl-certs/my-service"
-
 server:
   port: 8443
   ssl:
@@ -99,6 +89,15 @@ spring:
       kv:
         enabled: true
         backend: secret
+
+  ssl:
+    bundle:
+      pem:
+        my-service:
+          keystore:
+            certificate: "vault:secret/data/ssl-certs/my-service"
+          truststore:
+            certificate: "vault:secret/data/ssl-certs/my-service"
 ```
 
 That's it! Your application now loads SSL certificates directly from Vault.
@@ -116,8 +115,9 @@ Store certificates in Vault using this JSON structure:
 ```
 
 **Field Requirements by Use Case:**
-- **Keystore Configuration**: `certificate` is required, `private-key` and `ca-certificate` are filled automatically unless explicitly specified.
-- **Truststore only Configuration**: Only `ca-certificate` is required (or certificate as fallback)
+- **Keystore-only Configuration (Server SSL)**: `certificate` is required, `private-key` is filled automatically unless explicitly specified.
+- **Truststore-only Configuration (Client SSL)**: Only `ca-certificate` is required (or certificate as fallback)
+- **Keystore and Truststore Configuration (Full SSL Bundle)**: `certificate` and `ca-certificate` are required, `private-key` is filled automatically unless explicitly specified.
 
 ## ⚙️ Configuration Options
 
