@@ -116,7 +116,7 @@ Store certificates in Vault using this JSON structure:
 
 **Field Requirements by Use Case:**
 - **Keystore-only Configuration (Server SSL)**: `certificate` is required, `private-key` is filled automatically unless explicitly specified.
-- **Truststore-only Configuration (Client SSL)**: Only `ca-certificate` is required (or certificate as fallback)
+- **Truststore-only Configuration (Client SSL)**: Only `ca-certificate` is required
 - **Keystore and Truststore Configuration (Full SSL Bundle)**: `certificate` and `ca-certificate` are required, `private-key` is filled automatically unless explicitly specified.
 
 ## ⚙️ Configuration Options
@@ -140,7 +140,7 @@ spring:
 **Automatic Field Mapping:**
 - `certificate` → Server certificate
 - `private-key` → Private key
-- `ca-certificate` → CA certificate (with fallback to `certificate`)
+- `ca-certificate` → CA certificate
 
 ### 🔧 Advanced Configuration
 

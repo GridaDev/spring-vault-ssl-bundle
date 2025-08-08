@@ -105,9 +105,9 @@ public class VaultSslBundleRegistrar implements SslBundleRegistrar {
         if (isVaultPath(certificatePath)) {
             logger.info("Loading keystore certificates for bundle '{}' from Vault", bundleName);
 
-            VaultPathInfo certPathInfo = parseVaultPath(certificatePath);
+            VaultPathInfo certPathInfo = parseVaultPath(certificatePath, CERTIFICATE_KEY);
             VaultPathInfo keyPathInfo = isVaultPath(privateKeyPath)
-                    ? parseVaultPath(privateKeyPath)
+                    ? parseVaultPath(privateKeyPath, PRIVATE_KEY_KEY)
                     : new VaultPathInfo(certPathInfo.path, PRIVATE_KEY_KEY); // Default to same path, different field
 
             // Load certificate data (using cache)
@@ -139,7 +139,7 @@ public class VaultSslBundleRegistrar implements SslBundleRegistrar {
         if (isVaultPath(certificatePath)) {
             logger.info("Loading truststore certificate for bundle '{}' from Vault", bundleName);
 
-            VaultPathInfo pathInfo = parseVaultPath(certificatePath);
+            VaultPathInfo pathInfo = parseVaultPath(certificatePath, CA_CERTIFICATE_KEY);
             Map<String, Object> certificateData = loadCertificateDataFromVaultWithCache(pathInfo.path, vaultDataCache);
 
             // Try CA certificate first, then fall back to regular certificate
@@ -220,7 +220,7 @@ public class VaultSslBundleRegistrar implements SslBundleRegistrar {
         return responseData;
     }
 
-    private VaultPathInfo parseVaultPath(String fullPath) {
+    private VaultPathInfo parseVaultPath(String fullPath, String defaultFieldName) {
         if (!isVaultPath(fullPath)) {
             throw new IllegalArgumentException("Path does not start with vault prefix: " + fullPath);
         }
@@ -239,7 +239,7 @@ public class VaultSslBundleRegistrar implements SslBundleRegistrar {
             return new VaultPathInfo(vaultPath, fieldName);
         } else {
             // No field specified, use default field names based on context
-            return new VaultPathInfo(pathAfterPrefix, null);
+            return new VaultPathInfo(pathAfterPrefix, defaultFieldName);
         }
     }
 
@@ -256,7 +256,7 @@ public class VaultSslBundleRegistrar implements SslBundleRegistrar {
 
         VaultPathInfo(String path, String field) {
             this.path = path;
-            this.field = field != null ? field : CERTIFICATE_KEY; // Default to certificate field
+            this.field = field;
         }
     }
 
