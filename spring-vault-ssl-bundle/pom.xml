@@ -22,25 +22,28 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <!-- Spring Boot Auto Configuration -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-autoconfigure</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <!-- Spring Boot Starter -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
+      <scope>provided</scope>
     </dependency>
 
-    <!-- Spring Cloud Vault -->
+    <!-- Spring Cloud Starter Vault Config -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-vault-config</artifactId>
-      <version>${spring-cloud-vault.version}</version>
+      <artifactId>spring-cloud-starter-vault-config</artifactId>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>
