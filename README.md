@@ -264,8 +264,7 @@ The library automatically detects and handles both KV v1 and KV v2 formats.
 ## 🛠️ Requirements
 
 - **Java**: 17 or higher
-- **Spring Boot**: 3.2 or higher
-
+- **Spring Boot**: 3.2 or higher and its corresponding Spring Cloud version
 
 ## 📦 Dependencies
 
@@ -316,13 +315,6 @@ The library itself uses these dependencies with `provided` scope, meaning they m
     <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <scope>provided</scope>
-    </dependency>
-
-    <!-- Spring Boot Auto Configuration -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-autoconfigure</artifactId>
         <scope>provided</scope>
     </dependency>
 
