@@ -264,9 +264,89 @@ The library automatically detects and handles both KV v1 and KV v2 formats.
 ## 🛠️ Requirements
 
 - **Java**: 17 or higher
-- **Spring Boot**: 3.0 or higher
-- **Spring Vault**: 3.0 or higher
-- **HashiCorp Vault**: Any supported version
+- **Spring Boot**: 3.2 or higher
+
+
+## 📦 Dependencies
+
+This library has minimal dependencies and integrates seamlessly with your existing Spring Boot application:
+
+### Required Dependencies in Your Project
+
+**Maven:**
+```xml
+<dependencies>
+    <!-- Spring Boot Starter -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    
+    <!-- Spring Cloud Vault Config -->
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-vault-config</artifactId>
+    </dependency>
+    
+    <!-- Spring Vault SSL Bundle (This Library) -->
+    <dependency>
+        <groupId>io.github.gridadev</groupId>
+        <artifactId>spring-vault-ssl-bundle</artifactId>
+        <version>0.0.1</version>
+    </dependency>
+</dependencies>
+```
+
+**Gradle:**
+```kotlin
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
+    implementation("io.github.gridadev:spring-vault-ssl-bundle:0.0.1")
+}
+```
+
+### Library Dependencies (Provided Scope)
+
+The library itself uses these dependencies with `provided` scope, meaning they must be present in your application:
+
+```xml
+<dependencies>
+    <!-- SLF4J API -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- Spring Boot Auto Configuration -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-autoconfigure</artifactId>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- Spring Boot Starter -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- Spring Cloud Starter Vault Config -->
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-vault-config</artifactId>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
+```
+
+**Why Provided Scope?**
+- ✅ **No Version Conflicts** - Uses your application's Spring Boot version
+- ✅ **Smaller Library Size** - Dependencies are expected to be in your classpath
+- ✅ **Better Integration** - Aligns with your application's Spring ecosystem
+
 
 ## 🤝 Contributing
 
