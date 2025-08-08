@@ -49,13 +49,13 @@ spring:
 <dependency>
     <groupId>io.github.gridadev</groupId>
     <artifactId>spring-vault-ssl-bundle</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
 **Gradle:**
 ```kotlin
-implementation("io.github.gridadev:spring-vault-ssl-bundle:0.0.1")
+implementation("io.github.gridadev:spring-vault-ssl-bundle:0.1.0")
 ```
 
 ### 2. Store Certificates in Vault
@@ -291,7 +291,7 @@ This library has minimal dependencies and integrates seamlessly with your existi
     <dependency>
         <groupId>io.github.gridadev</groupId>
         <artifactId>spring-vault-ssl-bundle</artifactId>
-        <version>0.0.1</version>
+        <version>0.1.0</version>
     </dependency>
 </dependencies>
 ```
@@ -301,7 +301,7 @@ This library has minimal dependencies and integrates seamlessly with your existi
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
-    implementation("io.github.gridadev:spring-vault-ssl-bundle:0.0.1")
+    implementation("io.github.gridadev:spring-vault-ssl-bundle:0.1.0")
 }
 ```
 
