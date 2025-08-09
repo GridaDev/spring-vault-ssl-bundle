@@ -9,7 +9,7 @@
     <description>A parent POM for the Spring Boot integration that enables SSL bundle support
     with HashiCorp Vault for secure certificate management and rotation.</description>
 
-    <url>https://github.com/GridaDev/spring-vault-ssl-bundle</url>
+    <url>${scm.url}</url>
 
     <licenses>
         <license>
@@ -35,10 +35,10 @@
     </modules>
 
     <scm>
-        <connection>scm:git:git://github.com/GridaDev/spring-vault-ssl-bundle.git</connection>
-        <developerConnection>scm:git:ssh://github.com/GridaDev/spring-vault-ssl-bundle.git</developerConnection>
+        <connection>${scm.connection}</connection>
+        <developerConnection>${scm.developerConnection}</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/GridaDev/spring-vault-ssl-bundle</url>
+        <url>${scm.url}</url>
     </scm>
 
     <properties>
@@ -48,6 +48,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot.version>3.5.4</spring-boot.version>
         <spring-cloud.version>2025.0.0</spring-cloud.version>
+        <scm.connection>scm:git:git://github.com/GridaDev/spring-vault-ssl-bundle.git</scm.connection>
+        <scm.developerConnection>scm:git:ssh://github.com/GridaDev/spring-vault-ssl-bundle.git</scm.developerConnection>
+        <scm.url>https://github.com/GridaDev/spring-vault-ssl-bundle</scm.url>
         <revision>0.0.1-SNAPSHOT</revision>
     </properties>
 
