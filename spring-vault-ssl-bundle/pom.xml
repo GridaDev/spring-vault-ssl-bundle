@@ -16,33 +16,6 @@
     <description>A Spring Boot starter that enables secure loading and automatic reloading of SSL bundles
     (certificates, keys, trust stores) from HashiCorp Vault using Spring Boot's SSL Bundle support.</description>
 
-    <url>https://github.com/GridaDev/spring-vault-ssl-bundle</url>
-
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>https://opensource.org/licenses/MIT</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>GridaDev</id>
-            <name>GridaDev</name>
-            <email>khalil.lagrida@gmail.com</email>
-            <organization>GridaDev</organization>
-            <organizationUrl>https://github.com/GridaDev</organizationUrl>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:git:git://github.com/GridaDev/spring-vault-ssl-bundle.git</connection>
-        <developerConnection>scm:git:ssh://github.com/GridaDev/spring-vault-ssl-bundle.git</developerConnection>
-        <tag>HEAD</tag>
-        <url>https://github.com/GridaDev/spring-vault-ssl-bundle</url>
-    </scm>
-
     <dependencies>
 
         <!-- SLF4J API -->
