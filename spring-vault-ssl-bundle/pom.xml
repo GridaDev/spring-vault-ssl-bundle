@@ -18,6 +18,13 @@
 
     <url>https://github.com/GridaDev/spring-vault-ssl-bundle</url>
 
+    <scm>
+        <connection>scm:git:git://github.com/GridaDev/spring-vault-ssl-bundle.git</connection>
+        <developerConnection>scm:git:ssh://github.com/GridaDev/spring-vault-ssl-bundle.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/GridaDev/spring-vault-ssl-bundle</url>
+    </scm>
+
     <dependencies>
 
         <!-- SLF4J API -->
