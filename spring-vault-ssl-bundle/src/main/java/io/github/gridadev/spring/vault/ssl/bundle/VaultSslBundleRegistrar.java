@@ -142,12 +142,7 @@ public class VaultSslBundleRegistrar implements SslBundleRegistrar {
             VaultPathInfo pathInfo = parseVaultPath(certificatePath, CA_CERTIFICATE_KEY);
             Map<String, Object> certificateData = loadCertificateDataFromVaultWithCache(pathInfo.path, vaultDataCache);
 
-            // Try CA certificate first, then fall back to regular certificate
             String caCertificate = extractFieldValue(certificateData, pathInfo.field, bundleName, "CA certificate");
-            if (caCertificate == null && CA_CERTIFICATE_KEY.equals(pathInfo.field)) {
-                caCertificate = extractFieldValue(
-                        certificateData, CERTIFICATE_KEY, bundleName, "certificate (fallback for CA)");
-            }
 
             if (caCertificate != null) {
                 bundleProperties.getTruststore().setCertificate(caCertificate);
