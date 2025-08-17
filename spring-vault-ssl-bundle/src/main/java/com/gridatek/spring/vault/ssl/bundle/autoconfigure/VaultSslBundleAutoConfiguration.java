@@ -1,6 +1,6 @@
-package io.github.gridadev.spring.vault.ssl.bundle.autoconfigure;
+package com.gridatek.spring.vault.ssl.bundle.autoconfigure;
 
-import io.github.gridadev.spring.vault.ssl.bundle.VaultSslBundleRegistrar;
+import com.gridatek.spring.vault.ssl.bundle.VaultSslBundleRegistrar;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.ssl.SslBundleRegistrar;
 import org.springframework.boot.autoconfigure.ssl.SslProperties;

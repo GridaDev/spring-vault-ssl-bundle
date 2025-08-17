@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.github.gridadev</groupId>
+    <groupId>com.gridatek</groupId>
     <artifactId>spring-vault-ssl-bundle-parent-project</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
@@ -21,11 +21,11 @@
 
     <developers>
         <developer>
-            <id>GridaDev</id>
-            <name>GridaDev</name>
+            <id>khalil88</id>
+            <name>Khalil LAGRIDA</name>
             <email>khalil.lagrida@gmail.com</email>
-            <organization>GridaDev</organization>
-            <organizationUrl>https://github.com/GridaDev</organizationUrl>
+            <organization>GridaTek</organization>
+            <organizationUrl>https://github.com/gradatek</organizationUrl>
         </developer>
     </developers>
 
@@ -48,9 +48,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot.version>3.5.4</spring-boot.version>
         <spring-cloud.version>2025.0.0</spring-cloud.version>
-        <scm.connection>scm:git:git://github.com/GridaDev/spring-vault-ssl-bundle.git</scm.connection>
-        <scm.developerConnection>scm:git:ssh://github.com/GridaDev/spring-vault-ssl-bundle.git</scm.developerConnection>
-        <scm.url>https://github.com/GridaDev/spring-vault-ssl-bundle</scm.url>
+        <scm.connection>scm:git:git://github.com/gridatek/spring-vault-ssl-bundle.git</scm.connection>
+        <scm.developerConnection>scm:git:ssh://github.com/gridatek/spring-vault-ssl-bundle.git</scm.developerConnection>
+        <scm.url>https://github.com/gridatek/spring-vault-ssl-bundle</scm.url>
         <revision>0.0.1-SNAPSHOT</revision>
     </properties>
 

@@ -1,4 +1,4 @@
-package io.github.gridadev.demo.health;
+package com.gridadtek.demo.health;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
