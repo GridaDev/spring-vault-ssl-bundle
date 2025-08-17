@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.gridadev</groupId>
+        <groupId>com.gridatek</groupId>
         <artifactId>spring-vault-ssl-bundle-parent-project</artifactId>
         <version>${revision}</version>
     </parent>

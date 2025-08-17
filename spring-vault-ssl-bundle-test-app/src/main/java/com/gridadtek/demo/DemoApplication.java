@@ -1,13 +1,12 @@
-package io.github.gridadev.demo;
+package com.gridadtek.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"io.github.gridadev"})
+@ComponentScan(basePackages = {"com.gridatek"})
 public class DemoApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }

@@ -47,15 +47,15 @@ spring:
 **Maven:**
 ```xml
 <dependency>
-    <groupId>io.github.gridadev</groupId>
+    <groupId>com.gridatek</groupId>
     <artifactId>spring-vault-ssl-bundle</artifactId>
-    <version>0.5.0</version>
+    <version>0.10.0</version>
 </dependency>
 ```
 
 **Gradle:**
 ```kotlin
-implementation("io.github.gridadev:spring-vault-ssl-bundle:0.5.0")
+implementation("com.gridatek:spring-vault-ssl-bundle:0.10.0")
 ```
 
 ### 2. Store Certificates in Vault
@@ -289,9 +289,9 @@ This library has minimal dependencies and integrates seamlessly with your existi
     
     <!-- Spring Vault SSL Bundle (This Library) -->
     <dependency>
-        <groupId>io.github.gridadev</groupId>
+        <groupId>com.gridatek</groupId>
         <artifactId>spring-vault-ssl-bundle</artifactId>
-        <version>0.5.0</version>
+        <version>0.10.0</version>
     </dependency>
 </dependencies>
 ```
@@ -301,7 +301,7 @@ This library has minimal dependencies and integrates seamlessly with your existi
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
-    implementation("io.github.gridadev:spring-vault-ssl-bundle:0.5.0")
+    implementation("com.gridatek:spring-vault-ssl-bundle:0.10.0")
 }
 ```
 

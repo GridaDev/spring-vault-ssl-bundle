@@ -1,4 +1,4 @@
-package io.github.gridadev.spring.vault.ssl.bundle;
+package com.gridatek.spring.vault.ssl.bundle;
 
 import java.util.HashMap;
 import java.util.Map;

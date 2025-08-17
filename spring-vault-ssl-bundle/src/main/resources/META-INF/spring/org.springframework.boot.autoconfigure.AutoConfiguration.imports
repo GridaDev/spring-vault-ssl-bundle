@@ -1,1 +1,1 @@
-io.github.gridadev.spring.vault.ssl.bundle.autoconfigure.VaultSslBundleAutoConfiguration
+com.gridatek.spring.vault.ssl.bundle.autoconfigure.VaultSslBundleAutoConfiguration
